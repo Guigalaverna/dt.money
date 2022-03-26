@@ -11,7 +11,7 @@ const activeLink = css({
   color: "$blue !important",
 });
 
-export function Link({ children, ...rest }: LinkProps) {
+export function ActiveLink({ children, ...rest }: LinkProps) {
   const { asPath } = useRouter();
 
   const className = asPath === rest.href ? activeLink() : "";

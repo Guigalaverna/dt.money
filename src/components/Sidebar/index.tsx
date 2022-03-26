@@ -1,4 +1,4 @@
-import { Link } from "../Link";
+import { ActiveLink } from "../ActiveLink";
 import { Container, NavigationWrapper } from "./styles";
 
 import {
@@ -14,36 +14,36 @@ export function Sidebar() {
       <div>
         <img src="/dt.money-logo.svg" alt="Logo DT money" />
         <NavigationWrapper>
-          <Link href="/">
+          <ActiveLink href="/">
             <a>
               <RiHome2Line size={24} />
               Dashboard
             </a>
-          </Link>
+          </ActiveLink>
 
-          <Link href="/atividade">
+          <ActiveLink href="/atividade">
             <a>
               <RiCalendar2Line size={24} />
               Atividade
             </a>
-          </Link>
+          </ActiveLink>
 
-          <Link href="/resumo">
+          <ActiveLink href="/resumo">
             <a>
               <RiPieChart2Line size={24} />
               Relatório
             </a>
-          </Link>
+          </ActiveLink>
         </NavigationWrapper>
       </div>
       <div>
         <NavigationWrapper>
-          <Link href="/configuracoes">
+          <ActiveLink href="/configuracoes">
             <a>
               <RiSettings2Line size={24} />
               Configurações
             </a>
-          </Link>
+          </ActiveLink>
         </NavigationWrapper>
       </div>
     </Container>
