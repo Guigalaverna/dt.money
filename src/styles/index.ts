@@ -1,6 +1,6 @@
 import { createStitches } from "@stitches/react";
 
-export const { styled, getCssText, globalCss } = createStitches({
+export const { styled, css, getCssText, globalCss } = createStitches({
   theme: {
     fonts: {
       system: "system-ui",
@@ -24,5 +24,12 @@ export const globalStyles = globalCss({
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
+  },
+
+  "#__next": {
+    height: "100vh",
+    width: "100vw",
+
+    display: "flex",
   },
 });
