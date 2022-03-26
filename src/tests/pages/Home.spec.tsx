@@ -4,8 +4,8 @@ import Home from "../../pages";
 describe("Home page", () => {
   it("renders correctly", () => {
     render(<Home />);
-    const heading = screen.getByText("dt.money");
+    const homeContainer = screen.getByTestId("home");
 
-    expect(heading).toBeInTheDocument();
+    expect(homeContainer).toBeInTheDocument();
   });
 });
