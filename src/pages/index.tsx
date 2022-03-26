@@ -1,3 +1,4 @@
+import { Sidebar } from "../components/Sidebar";
 import { styled } from "../styles";
 
 const Haeding = styled("h1", {
@@ -5,5 +6,5 @@ const Haeding = styled("h1", {
 });
 
 export default function Home() {
-  return <Haeding>dt.money</Haeding>;
+  return <h1></h1>;
 }
