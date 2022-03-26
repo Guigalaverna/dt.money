@@ -1,3 +1,9 @@
+import { styled } from "../styles";
+
+const Haeding = styled("h1", {
+  color: "$blue",
+});
+
 export default function Home() {
-  return <h1>dt.money</h1>;
+  return <Haeding>dt.money</Haeding>;
 }
