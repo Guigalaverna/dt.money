@@ -1,3 +1,4 @@
+import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { styled } from "../styles";
 import { Cards, Container, Header, Heading } from "./_styles/Home";
@@ -8,7 +9,7 @@ export default function Home() {
       <Header>
         <div>
           <Heading>Bem vindo, Guilherme</Heading>
-          <button>Nova transação</button>
+          <Button type="filled" title="Nova transação" />
         </div>
 
         <Cards>
