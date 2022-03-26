@@ -1,10 +1,22 @@
-import { Sidebar } from "../components/Sidebar";
+import { Card } from "../components/Card";
 import { styled } from "../styles";
-
-const Haeding = styled("h1", {
-  color: "$blue",
-});
+import { Cards, Container, Header, Heading } from "./_styles/Home";
 
 export default function Home() {
-  return <h1></h1>;
+  return (
+    <Container data-testid="home">
+      <Header>
+        <div>
+          <Heading>Bem vindo, Guilherme</Heading>
+          <button>Nova transação</button>
+        </div>
+
+        <Cards>
+          <Card transactionType="income" amountInCents={1000} />
+          <Card transactionType="outcome" amountInCents={500} />
+          <Card transactionType="total" amountInCents={500} />
+        </Cards>
+      </Header>
+    </Container>
+  );
 }
