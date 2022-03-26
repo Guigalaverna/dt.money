@@ -6,5 +6,9 @@ interface ButtonProps {
 }
 
 export function Button({ type, title }: ButtonProps) {
-  return <Container buttonType={type}>{title}</Container>;
+  return (
+    <Container data-testid="test-button" buttonType={type}>
+      {title}
+    </Container>
+  );
 }

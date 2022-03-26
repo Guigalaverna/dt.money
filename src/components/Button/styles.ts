@@ -21,7 +21,19 @@ export const Container = styled("button", {
           filter: "brightness(1.2)",
         },
       },
-      outlined: {},
+      outlined: {
+        background: "transparent",
+        border: "2.5px solid $shape",
+        color: "$shape",
+        fontSize: "1rem",
+        fontWeight: "500",
+        transition: "background 0.2s",
+
+        "&:hover": {
+          background: "$shape",
+          color: "$titles",
+        },
+      },
       transparent: {},
     },
   },
