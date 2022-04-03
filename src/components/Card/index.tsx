@@ -38,10 +38,10 @@ export function Card({ transactionType, amount }: CardProps) {
       : FiDollarSign;
   const cardColor =
     transactionType === "income"
-      ? theme.colors.green
+      ? theme.colors.green.value
       : transactionType === "outcome"
-      ? theme.colors.red
-      : theme.colors.shape;
+      ? theme.colors.red.value
+      : theme.colors.shape.value;
 
   return (
     <Container
