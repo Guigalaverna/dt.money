@@ -1,15 +1,10 @@
-import { randomUUID } from "crypto";
+import { v4 } from "uuid";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { Transaction } from "../../@types/Transaction";
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  addTransaction: (
-    type: "income" | "outcome",
-    amountInCents: number,
-    category: string,
-    title: string
-  ) => void;
+  addTransaction: (data: Transaction) => void;
   removeTransaction: (id: string) => void;
 }
 
@@ -24,87 +19,22 @@ export function TransactionContextProvider({
 }: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([
     {
-      id: "1",
+      id: v4(),
       type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "2",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "3",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "4",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "5",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "6",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "7",
-      type: "income",
-      amountInCents: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-    {
-      id: "8",
-      type: "income",
-      amountInCents: 1000,
+      amount: 1000,
       category: "Salário",
       title: "Salário",
       createdAt: new Date(),
     },
   ]);
 
-  async function addTransaction(
-    type: "income" | "outcome",
-    amountInCents: number,
-    category: string,
-    title: string
-  ) {
-    const data: Transaction = {
-      id: randomUUID(),
-      type,
-      amountInCents,
-      category,
-      title,
+  async function addTransaction(data: Transaction) {
+    const formattedData = {
+      ...data,
+      id: v4(),
       createdAt: new Date(),
     };
-
-    setTransactions([...transactions, data]);
+    setTransactions([...transactions, formattedData]);
   }
 
   async function removeTransaction(id: string) {

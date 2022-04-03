@@ -22,7 +22,7 @@ export function TransactionTable() {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
-                <td>{formatCentsInReal(transaction.amountInCents)}</td>
+                <td>{formatCentsInReal(transaction.amount)}</td>
                 <td>{transaction.category}</td>
                 <td>{transaction.createdAt.toLocaleDateString()}</td>
                 <td>

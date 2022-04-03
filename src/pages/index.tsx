@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { TransactionTable } from "../components/TransactionTable";
@@ -17,10 +17,19 @@ import {
 import { RiCloseLine } from "react-icons/ri";
 import Modal from "react-modal";
 import { theme } from "../styles";
+import { Transaction } from "../../@types/Transaction";
+import { v4 } from "uuid";
+import { useTransactions } from "../contexts/TransactionsContext";
 
 Modal.setAppElement("#__next");
 export default function Home() {
+  const { addTransaction } = useTransactions();
   const [isOpen, setIsOpen] = useState(false);
+
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState<"income" | "outcome" | null>();
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState("");
 
   function closeModal() {
     setIsOpen(false);
@@ -28,6 +37,21 @@ export default function Home() {
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    const data = {
+      title,
+      type,
+      amount,
+      category,
+    };
+
+    console.log(data);
+    addTransaction(data);
+    closeModal();
   }
 
   return (
@@ -78,16 +102,28 @@ export default function Home() {
             <RiCloseLine size={24} color={theme.colors.red.value} />
           </button>
         </ModalHeader>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Fieldset>
             <div>
               <label htmlFor="title">Título da Transação</label>
-              <Input id="title" type="text" placeholder="Aluguel da Casa" />
+              <Input
+                id="title"
+                type="text"
+                placeholder="Aluguel da Casa"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
             </div>
 
             <div>
               <label htmlFor="type">Tipo da transação</label>
-              <select name="type" id="type">
+              <select
+                name="type"
+                id="type"
+                value={type}
+                // @ts-ignore
+                onChange={e => setType(e.target.value)}
+              >
                 <option value="default">Selecione uma Opção</option>
                 <option value="income">Entrada</option>
                 <option value="outcome">Saída</option>
@@ -97,12 +133,23 @@ export default function Home() {
             <div>
               <label htmlFor="amount">Valor da Transação</label>
               <label htmlFor="amount">Obs: digite apenas o número</label>
-              <Input name="amount" type="number" placeholder="10" />
+              <Input
+                name="amount"
+                type="number"
+                placeholder="10"
+                value={amount}
+                onChange={e => setAmount(Number(e.target.value))}
+              />
             </div>
 
             <div>
               <label htmlFor="category">Categoria</label>
-              <Input type="text" placeholder="Casa" />
+              <Input
+                type="text"
+                placeholder="Casa"
+                value={category}
+                onChange={e => setCategory(e.target.value)}
+              />
             </div>
 
             <ModalButton type="submit">Cadastrar</ModalButton>
