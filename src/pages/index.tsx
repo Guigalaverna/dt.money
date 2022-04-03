@@ -1,7 +1,8 @@
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { TransactionTable } from "../components/TransactionTable";
 import { styled } from "../styles";
-import { Cards, Container, Header, Heading } from "./_styles/Home";
+import { Cards, Container, Header, Heading, Content } from "./_styles/Home";
 
 export default function Home() {
   return (
@@ -18,6 +19,9 @@ export default function Home() {
           <Card transactionType="total" amountInCents={500} />
         </Cards>
       </Header>
+      <Content>
+        <TransactionTable />
+      </Content>
     </Container>
   );
 }

@@ -32,3 +32,9 @@ export const Cards = styled("section", {
   justifyContent: "space-between",
   marginBottom: "-6rem",
 });
+
+export const Content = styled("main", {
+  background: "$background",
+  height: "100%",
+  padding: "3.5rem",
+});
