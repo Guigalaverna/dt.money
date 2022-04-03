@@ -4,6 +4,7 @@ export const Container = styled("table", {
   fontFamily: "$body",
   width: "100%",
   borderSpacing: "0 0.5rem",
+  whiteSpace: "nowrap",
 
   th: {
     padding: "1rem 2rem",
@@ -29,6 +30,19 @@ export const Content = styled("tbody", {
     background: "$shape",
     td: {
       padding: "1.5rem 2rem",
+    },
+
+    "td button": {
+      background: "transparent",
+      fontSize: "0",
+      border: "none",
+      display: "flex",
+      alignItems: "center",
+      transition: "filter 0.2s",
+
+      "&:hover": {
+        filter: "brightness(0.8)",
+      },
     },
   },
 });
