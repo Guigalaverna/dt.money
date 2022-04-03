@@ -1,4 +1,4 @@
-import { styled } from "../../styles";
+import { styled } from "..";
 
 export const Container = styled("main", {
   background: "$background",
@@ -30,6 +30,7 @@ export const Header = styled("header", {
     color: "$green",
     fontWeight: "bold",
     transition: "color 0.2s",
+    cursor: "pointer",
 
     "&:hover": {
       background: "$green",

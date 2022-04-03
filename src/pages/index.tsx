@@ -12,7 +12,7 @@ import {
   ModalHeader,
   Input,
   ModalButton,
-} from "./_styles/Home";
+} from "../styles/pages/_Home";
 
 import { RiCloseLine } from "react-icons/ri";
 import Modal from "react-modal";

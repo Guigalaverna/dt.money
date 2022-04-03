@@ -1,4 +1,4 @@
-import { styled } from "../../styles";
+import { styled } from "..";
 
 export const Container = styled("main", {
   height: "100%",

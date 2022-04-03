@@ -1,13 +1,28 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TransactionTable } from "../components/TransactionTable";
-import { Container, Content, Header } from "./_styles/Activity";
+import { Container, Content, Header } from "../styles/pages/_Activity";
 import * as XLSX from "xlsx";
 import { useTransactions } from "../contexts/TransactionsContext";
 import { formatCentsInReal } from "../utils/formatCentsInReal";
+import { css } from "../styles";
 
 export default function Activity() {
   const tableRef = useRef(null);
+
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const { transactions } = useTransactions();
+
+  useEffect(() => {
+    if (transactions.length === 0) {
+      setButtonDisabled(true);
+    }
+  }, [transactions]);
+
+  const buttonDisabledCSS = css({
+    cursor: "not-allowed !important",
+    filter: "brightness(0.8)",
+  });
 
   function downloadXLSX() {
     // @ts-ignore
@@ -37,7 +52,13 @@ export default function Activity() {
         <h1>Relatório de Atividades</h1>
 
         <div>
-          <button onClick={downloadXLSX}>Exportar para Excel</button>
+          <button
+            className={buttonDisabled && buttonDisabledCSS()}
+            disabled={buttonDisabled}
+            onClick={downloadXLSX}
+          >
+            Exportar para Excel
+          </button>
         </div>
       </Header>
       <Content>
