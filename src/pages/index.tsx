@@ -23,7 +23,8 @@ import { useTransactions } from "../contexts/TransactionsContext";
 
 Modal.setAppElement("#__next");
 export default function Home() {
-  const { addTransaction } = useTransactions();
+  const { addTransaction, totalBalance, totalIncome, totalOutcome } =
+    useTransactions();
   const [isOpen, setIsOpen] = useState(false);
 
   const [title, setTitle] = useState("");
@@ -67,9 +68,9 @@ export default function Home() {
         </div>
 
         <Cards>
-          <Card transactionType="income" amountInCents={1000} />
-          <Card transactionType="outcome" amountInCents={500} />
-          <Card transactionType="total" amountInCents={500} />
+          <Card transactionType="income" amountInCents={totalIncome} />
+          <Card transactionType="outcome" amountInCents={totalOutcome} />
+          <Card transactionType="total" amountInCents={totalBalance} />
         </Cards>
       </Header>
       <Content>

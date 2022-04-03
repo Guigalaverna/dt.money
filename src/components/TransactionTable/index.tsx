@@ -3,10 +3,17 @@ import { formatCentsInReal } from "../../utils/formatCentsInReal";
 import { Container, Content, Header } from "./styles";
 
 import { RiDeleteBin2Line } from "react-icons/ri";
-import { theme } from "../../styles";
+import { css, theme } from "../../styles";
 
 export function TransactionTable() {
   const { transactions, removeTransaction } = useTransactions();
+
+  const outcomeCSS = css({
+    color: "$red",
+  });
+  const incomeCSS = css({
+    color: "$green",
+  });
 
   return (
     <div style={{ height: 570, overflowY: "auto" }}>
@@ -22,7 +29,14 @@ export function TransactionTable() {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
-                <td>{formatCentsInReal(transaction.amount)}</td>
+                <td
+                  className={
+                    transaction.type === "income" ? incomeCSS() : outcomeCSS()
+                  }
+                >
+                  {transaction.type === "outcome" && "-"}
+                  {formatCentsInReal(transaction.amount)}
+                </td>
                 <td>{transaction.category}</td>
                 <td>{transaction.createdAt.toLocaleDateString()}</td>
                 <td>

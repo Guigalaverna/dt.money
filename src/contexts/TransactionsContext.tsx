@@ -6,6 +6,9 @@ interface TransactionsContextData {
   transactions: Transaction[];
   addTransaction: (data: Transaction) => void;
   removeTransaction: (id: string) => void;
+  totalBalance: number;
+  totalIncome: number;
+  totalOutcome: number;
 }
 
 interface TransactionsContextProviderProps {
@@ -17,16 +20,7 @@ const Context = createContext({} as TransactionsContextData);
 export function TransactionContextProvider({
   children,
 }: TransactionsContextProviderProps) {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      id: v4(),
-      type: "income",
-      amount: 1000,
-      category: "Salário",
-      title: "Salário",
-      createdAt: new Date(),
-    },
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   async function addTransaction(data: Transaction) {
     const formattedData = {
@@ -45,12 +39,37 @@ export function TransactionContextProvider({
     });
   }
 
+  const incomeTransactions = transactions.filter(transaction => {
+    if (transaction.type === "income") {
+      return transaction;
+    }
+  });
+
+  const outcomeTransactions = transactions.filter(transaction => {
+    if (transaction.type === "outcome") {
+      return transaction;
+    }
+  });
+
+  const totalIncome = incomeTransactions.reduce((acc, curr) => {
+    return acc + curr.amount;
+  }, 0);
+
+  const totalOutcome = outcomeTransactions.reduce((acc, curr) => {
+    return acc + curr.amount;
+  }, 0);
+
+  const totalBalance = totalIncome - totalOutcome;
+
   return (
     <Context.Provider
       value={{
         addTransaction,
         removeTransaction,
         transactions,
+        totalBalance,
+        totalIncome,
+        totalOutcome,
       }}
     >
       {children}
