@@ -9,7 +9,7 @@ import {
 
 interface CardProps {
   transactionType: "income" | "outcome" | "total";
-  amountInCents: number;
+  amount: number;
 }
 
 const totalCss = css({
@@ -21,7 +21,7 @@ const totalCss = css({
   },
 });
 
-export function Card({ transactionType, amountInCents }: CardProps) {
+export function Card({ transactionType, amount }: CardProps) {
   const cardTitle =
     transactionType === "income"
       ? "Entradas"
@@ -44,12 +44,17 @@ export function Card({ transactionType, amountInCents }: CardProps) {
       : theme.colors.shape;
 
   return (
-    <Container className={cardBackground}>
+    <Container
+      className={cardBackground}
+      data-testid={`card-test-${transactionType}`}
+    >
       <header>
         <span>{cardTitle}</span>
         <CardIcon size={32} color={cardColor} />
       </header>
-      <p>{formatCentsInReal(amountInCents)}</p>
+      <p data-testid={`card-test-${transactionType}-result`}>
+        {formatCentsInReal(amount)}
+      </p>
     </Container>
   );
 }
