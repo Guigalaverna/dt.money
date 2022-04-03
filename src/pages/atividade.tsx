@@ -25,7 +25,10 @@ export default function Activity() {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
 
-    XLSX.writeFileXLSX(workbook, "Report.xlsx");
+    XLSX.writeFileXLSX(
+      workbook,
+      `dt.money - Relatório de Atividades - ${new Date().toLocaleDateString()}.xlsx`
+    );
   }
 
   return (
