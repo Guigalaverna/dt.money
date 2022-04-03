@@ -30,26 +30,6 @@ export function TransactionContextProvider({
 }: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  // useEffect(() => {
-  //   const cookies = parseCookies();
-
-  //   if (cookies.transactions.length > 0) {
-  //     setTransactions(JSON.parse(cookies.transactions));
-  //     return;
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (transactions.length > 0) {
-  //     const formattedTransactions = JSON.stringify(transactions);
-
-  //     setCookie(null, "transactions", formattedTransactions, {
-  //       maxAge: 30 * 24 * 60 * 60,
-  //       path: "/",
-  //     });
-  //   }
-  // }, [transactions]);
-
   useEffect(() => {
     const cookies = parseCookies();
 
