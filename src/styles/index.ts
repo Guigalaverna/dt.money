@@ -31,5 +31,6 @@ export const globalStyles = globalCss({
     width: "100vw",
 
     display: "flex",
+    overflow: "clip",
   },
 });
