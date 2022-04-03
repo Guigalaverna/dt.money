@@ -1,6 +1,14 @@
 import { v4 } from "uuid";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Transaction } from "../../@types/Transaction";
+
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 
 interface TransactionsContextData {
   transactions: Transaction[];
@@ -22,20 +30,66 @@ export function TransactionContextProvider({
 }: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function addTransaction(data: Transaction) {
+  // useEffect(() => {
+  //   const cookies = parseCookies();
+
+  //   if (cookies.transactions.length > 0) {
+  //     setTransactions(JSON.parse(cookies.transactions));
+  //     return;
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (transactions.length > 0) {
+  //     const formattedTransactions = JSON.stringify(transactions);
+
+  //     setCookie(null, "transactions", formattedTransactions, {
+  //       maxAge: 30 * 24 * 60 * 60,
+  //       path: "/",
+  //     });
+  //   }
+  // }, [transactions]);
+
+  useEffect(() => {
+    const cookies = parseCookies();
+
+    if (cookies.transactions) {
+      setTransactions(JSON.parse(cookies.transactions));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (transactions.length > 0) {
+      const formattedTransactions = JSON.stringify(transactions);
+
+      setCookie(null, "transactions", formattedTransactions, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      });
+    } else {
+      destroyCookie(null, "transactions");
+    }
+  }, [transactions]);
+
+  function addTransaction(data: Transaction) {
     const formattedData = {
       ...data,
       id: v4(),
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
     };
     setTransactions([...transactions, formattedData]);
   }
 
-  async function removeTransaction(id: string) {
+  function removeTransaction(id: string) {
     setTransactions(prevState => {
       if (prevState.length === 0) return prevState;
 
       return prevState.filter(transaction => transaction.id !== id);
+    });
+
+    setCookie(null, "transactions", JSON.stringify(transactions), {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
     });
   }
 

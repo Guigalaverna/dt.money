@@ -4,6 +4,7 @@ import { Container, Content, Header } from "./styles";
 
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { css, theme } from "../../styles";
+import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
 
 export function TransactionTable() {
   const { transactions, removeTransaction } = useTransactions();
@@ -38,7 +39,7 @@ export function TransactionTable() {
                   {formatCentsInReal(transaction.amount)}
                 </td>
                 <td>{transaction.category}</td>
-                <td>{transaction.createdAt.toLocaleDateString()}</td>
+                <td>{formatISOtoLocaleDate(transaction.createdAt)}</td>
                 <td>
                   <button onClick={() => removeTransaction(transaction.id)}>
                     <RiDeleteBin2Line
