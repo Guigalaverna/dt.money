@@ -68,9 +68,9 @@ export default function Home() {
         </div>
 
         <Cards>
-          <Card transactionType="income" amountInCents={totalIncome} />
-          <Card transactionType="outcome" amountInCents={totalOutcome} />
-          <Card transactionType="total" amountInCents={totalBalance} />
+          <Card transactionType="income" amount={totalIncome} />
+          <Card transactionType="outcome" amount={totalOutcome} />
+          <Card transactionType="total" amount={totalBalance} />
         </Cards>
       </Header>
       <Content>
