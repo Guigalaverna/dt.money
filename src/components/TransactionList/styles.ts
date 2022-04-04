@@ -55,11 +55,11 @@ export const Content = styled("tbody", {
       },
     },
 
-    "td[role=cell-income]:nth-child(2)": {
+    "td[role=cell-Entrada]:nth-child(2), td[role=cell-Entrada]:nth-child(3)": {
       color: "$green",
     },
 
-    "td[role=cell-outcome]:nth-child(2)": {
+    "td[role=cell-Saída]:nth-child(2), td[role=cell-Saída]:nth-child(3)": {
       color: "$red",
     },
   },

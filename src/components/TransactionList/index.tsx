@@ -7,8 +7,10 @@ import { useTransactions } from "../../contexts/TransactionsContext";
 import { theme } from "../../styles";
 import { formatCentsInReal } from "../../utils/formatCentsInReal";
 import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
-import { ColumnFilter } from "../TransactionTable/ColumnFilter";
+import { ColumnFilter } from "./ColumnFilter";
+import { TypeFilter } from "./TypeFilter";
 import { Container, Content, Header } from "./styles";
+import { DateFilter } from "./DateFilter";
 
 export function TransactionList() {
   const { transactions, removeTransaction } = useTransactions();
@@ -18,10 +20,10 @@ export function TransactionList() {
       return {
         title: t.title,
         amount: formatCentsInReal(t.amount),
+        type: t.type === "income" ? "Entrada" : "Saída",
         category: t.category,
         createdAt: formatISOtoLocaleDate(t.createdAt),
         id: t.id,
-        type: t.type,
       };
     });
   }, [transactions]);
@@ -43,6 +45,11 @@ export function TransactionList() {
         Filter: ColumnFilter,
       },
       {
+        Header: "Tipo da Transação",
+        accessor: "type",
+        Filter: TypeFilter,
+      },
+      {
         Header: "Categoria",
         accessor: "category",
         Filter: ColumnFilter,
@@ -50,7 +57,7 @@ export function TransactionList() {
       {
         Header: "Data",
         accessor: "createdAt",
-        Filter: ColumnFilter,
+        Filter: DateFilter,
       },
     ],
     []
