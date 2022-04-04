@@ -20,6 +20,7 @@ import { theme } from "../styles";
 import { Transaction } from "../../@types/Transaction";
 import { v4 } from "uuid";
 import { useTransactions } from "../contexts/TransactionsContext";
+import { TransactionList } from "../components/TransactionList";
 
 Modal.setAppElement("#__next");
 export default function Home() {
@@ -74,7 +75,7 @@ export default function Home() {
         </Cards>
       </Header>
       <Content>
-        <TransactionTable />
+        <TransactionList />
       </Content>
 
       <Modal

@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 import { useTransactions } from "../contexts/TransactionsContext";
 import { formatCentsInReal } from "../utils/formatCentsInReal";
 import { css } from "../styles";
+import { TransactionList } from "../components/TransactionList";
 
 export default function Activity() {
   const tableRef = useRef(null);
@@ -62,7 +63,7 @@ export default function Activity() {
         </div>
       </Header>
       <Content>
-        <TransactionTable ref={tableRef} />
+        <TransactionList />
       </Content>
     </Container>
   );

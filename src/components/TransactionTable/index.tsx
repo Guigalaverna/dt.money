@@ -7,10 +7,18 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { css, theme } from "../../styles";
 import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
 import { ForwardedRef, forwardRef, useRef } from "react";
+import { Transaction } from "../../../@types/Transaction";
+
+interface TransactionTableProps {
+  transactions: Transaction[];
+}
 
 export const TransactionTable = forwardRef(
-  (props, ref: ForwardedRef<HTMLTableSectionElement>) => {
-    const { transactions, removeTransaction } = useTransactions();
+  (
+    props: TransactionTableProps,
+    ref: ForwardedRef<HTMLTableSectionElement>
+  ) => {
+    const { removeTransaction, isFiltersEnabled } = useTransactions();
     const tableRef = ref;
 
     const outcomeCSS = css({
@@ -30,7 +38,7 @@ export const TransactionTable = forwardRef(
             <th>Data</th>
           </Header>
           <Content ref={tableRef}>
-            {transactions.map(transaction => {
+            {props.transactions.map(transaction => {
               return (
                 <tr key={transaction.id}>
                   <td>{transaction.title}</td>
