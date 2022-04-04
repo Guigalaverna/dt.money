@@ -2,7 +2,7 @@ export function ColumnFilter({ column }) {
   const { filterName, setFilter } = column;
 
   return (
-    <span>
+    <span style={{ marginTop: "1rem" }}>
       <input
         type="text"
         value={filterName}

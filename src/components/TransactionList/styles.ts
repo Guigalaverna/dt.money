@@ -36,6 +36,12 @@ export const Content = styled("tbody", {
       padding: "1.5rem 2rem",
     },
 
+    button: {
+      padding: "1.8rem 2rem",
+      background: "transparent",
+      border: 0,
+    },
+
     "td button": {
       background: "transparent",
       fontSize: "0",

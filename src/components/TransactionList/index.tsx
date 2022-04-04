@@ -1,32 +1,17 @@
+// @ts-nocheck
 import { useCallback, useMemo } from "react";
+import { RiDeleteBin2Line } from "react-icons/ri";
 
 import { useTable, useFilters } from "react-table";
 import { useTransactions } from "../../contexts/TransactionsContext";
+import { theme } from "../../styles";
 import { formatCentsInReal } from "../../utils/formatCentsInReal";
 import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
 import { ColumnFilter } from "../TransactionTable/ColumnFilter";
 import { Container, Content, Header } from "./styles";
 
 export function TransactionList() {
-  const { transactions } = useTransactions();
-
-  //   {
-  //     id: "1",
-  //     title: "Salário",
-  //     type: "income",
-  //     amount: 3000,
-  //     category: "Salário",
-  //     createdAt: "2020-01-01",
-  //   },
-  //   {
-  //     id: "2",
-  //     title: "Aluguel",
-  //     type: "outcome",
-  //     amount: 1500,
-  //     category: "Imóveis",
-  //     createdAt: "2020-01-01",
-  //   },
-  // ],
+  const { transactions, removeTransaction } = useTransactions();
 
   const getTransactionData = useCallback(() => {
     return transactions.map(t => {
@@ -80,10 +65,11 @@ export function TransactionList() {
     <Container {...getTableProps()}>
       <Header>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
+              <th key={column.id} {...column.getHeaderProps()}>
                 {column.render("Header")}
+
                 <div>{column.canFilter ? column.render("Filter") : null}</div>
               </th>
             ))}
@@ -94,10 +80,12 @@ export function TransactionList() {
         {rows.map(row => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr key={row.original.id} {...row.getRowProps()}>
               {row.cells.map(cell => {
+                console.log(row.original.id);
                 return (
                   <td
+                    key={cell.row.id}
                     {...cell.getCellProps()}
                     role={`${cell.getCellProps().role}-${
                       cell.row.original.type
@@ -107,6 +95,10 @@ export function TransactionList() {
                   </td>
                 );
               })}
+
+              <button onClick={() => removeTransaction(row.original.id)}>
+                <RiDeleteBin2Line size={24} color={theme.colors.red.value} />{" "}
+              </button>
             </tr>
           );
         })}

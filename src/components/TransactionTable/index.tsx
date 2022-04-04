@@ -16,10 +16,10 @@ interface TransactionTableProps {
 export const TransactionTable = forwardRef(
   (
     props: TransactionTableProps,
-    ref: ForwardedRef<HTMLTableSectionElement>
+    ref?: ForwardedRef<HTMLTableSectionElement>
   ) => {
-    const { removeTransaction, isFiltersEnabled } = useTransactions();
-    const tableRef = ref;
+    const { removeTransaction } = useTransactions();
+    const tableRef = ref ? ref : null;
 
     const outcomeCSS = css({
       color: "$red",

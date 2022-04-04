@@ -24,8 +24,13 @@ import { TransactionList } from "../components/TransactionList";
 
 Modal.setAppElement("#__next");
 export default function Home() {
-  const { addTransaction, totalBalance, totalIncome, totalOutcome } =
-    useTransactions();
+  const {
+    transactions,
+    addTransaction,
+    totalBalance,
+    totalIncome,
+    totalOutcome,
+  } = useTransactions();
   const [isOpen, setIsOpen] = useState(false);
 
   const [title, setTitle] = useState("");
@@ -75,7 +80,7 @@ export default function Home() {
         </Cards>
       </Header>
       <Content>
-        <TransactionList />
+        <TransactionTable transactions={transactions} />
       </Content>
 
       <Modal
