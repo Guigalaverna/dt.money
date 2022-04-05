@@ -6,6 +6,7 @@ import { useTransactions } from "../contexts/TransactionsContext";
 import { formatCentsInReal } from "../utils/formatCentsInReal";
 import { css } from "../styles";
 import { TransactionList } from "../components/TransactionList";
+import { Layout } from "../styles/pages/global";
 
 export default function Activity() {
   const tableRef = useRef(null);
@@ -48,7 +49,7 @@ export default function Activity() {
   }
 
   return (
-    <Container>
+    <Layout>
       <Header>
         <h1>Relatório de Atividades</h1>
 
@@ -65,6 +66,6 @@ export default function Activity() {
       <Content>
         <TransactionList />
       </Content>
-    </Container>
+    </Layout>
   );
 }
