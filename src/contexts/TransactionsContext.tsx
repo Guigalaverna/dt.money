@@ -9,6 +9,7 @@ import {
 import { Transaction } from "../../@types/Transaction";
 
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { Category } from "../../@types/Category";
 
 interface TransactionsContextData {
   transactions: Transaction[];
@@ -17,6 +18,9 @@ interface TransactionsContextData {
   totalBalance: number;
   totalIncome: number;
   totalOutcome: number;
+  addCategory: (data: Category) => void;
+  removeCategory: (id: string) => void;
+  categories: Category[];
 }
 
 interface TransactionsContextProviderProps {
@@ -29,6 +33,7 @@ export function TransactionContextProvider({
   children,
 }: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const cookies = parseCookies();
@@ -58,6 +63,16 @@ export function TransactionContextProvider({
       createdAt: new Date().toISOString(),
     };
     setTransactions([...transactions, formattedData]);
+  }
+
+  function addCategory(data: Category) {
+    setCategories(prevState => [...prevState, data]);
+  }
+
+  function removeCategory(id: string) {
+    setCategories(prevState =>
+      prevState.filter(category => category.id !== id)
+    );
   }
 
   function removeTransaction(id: string) {
@@ -104,6 +119,9 @@ export function TransactionContextProvider({
         totalBalance,
         totalIncome,
         totalOutcome,
+        addCategory,
+        removeCategory,
+        categories,
       }}
     >
       {children}
