@@ -38,7 +38,7 @@ export function Sidebar() {
       </div>
       <div>
         <NavigationWrapper>
-          <ActiveLink href="/configuracoes">
+          <ActiveLink href="/configuracoes/geral">
             <a>
               <RiSettings2Line size={24} />
               Configurações
