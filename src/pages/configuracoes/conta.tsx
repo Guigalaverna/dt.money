@@ -5,6 +5,7 @@ import { Layout } from "../../styles/pages/global";
 
 import { RiHome2Line, RiAccountCircleLine } from "react-icons/ri";
 import { AccountSettings } from "../../settings/AccountSettings";
+import { Sidebar } from "../../components/Sidebar";
 
 const Container = styled(Layout, {
   "> section": {
@@ -38,14 +39,17 @@ export default function Settings() {
   );
 
   return (
-    <Container>
-      <h1>Configurações</h1>
-      <section>
-        <SettingsMenu links={links} />
-        <main>
-          <AccountSettings />
-        </main>
-      </section>
-    </Container>
+    <>
+      <Sidebar />
+      <Container>
+        <h1>Configurações</h1>
+        <section>
+          <SettingsMenu links={links} />
+          <main>
+            <AccountSettings />
+          </main>
+        </section>
+      </Container>
+    </>
   );
 }

@@ -10,7 +10,6 @@ export default function MyApp({
   return (
     <>
       <SessionProvider session={session}>
-        <Sidebar />
         <TransactionContextProvider>
           <Component {...pageProps} />
         </TransactionContextProvider>

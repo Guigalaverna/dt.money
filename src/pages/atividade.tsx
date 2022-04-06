@@ -7,6 +7,7 @@ import { formatCentsInReal } from "../utils/formatCentsInReal";
 import { css } from "../styles";
 import { TransactionList } from "../components/TransactionList";
 import { Layout } from "../styles/pages/global";
+import { Sidebar } from "../components/Sidebar";
 
 export default function Activity() {
   const tableRef = useRef(null);
@@ -49,23 +50,26 @@ export default function Activity() {
   }
 
   return (
-    <Layout>
-      <Header>
-        <h1>Relatório de Atividades</h1>
+    <>
+      <Sidebar />
+      <Layout>
+        <Header>
+          <h1>Relatório de Atividades</h1>
 
-        <div>
-          <button
-            className={buttonDisabled && buttonDisabledCSS()}
-            disabled={buttonDisabled}
-            onClick={downloadXLSX}
-          >
-            Exportar para Excel
-          </button>
-        </div>
-      </Header>
-      <Content>
-        <TransactionList />
-      </Content>
-    </Layout>
+          <div>
+            <button
+              className={buttonDisabled && buttonDisabledCSS()}
+              disabled={buttonDisabled}
+              onClick={downloadXLSX}
+            >
+              Exportar para Excel
+            </button>
+          </div>
+        </Header>
+        <Content>
+          <TransactionList />
+        </Content>
+      </Layout>
+    </>
   );
 }
