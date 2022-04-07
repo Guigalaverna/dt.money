@@ -1,9 +1,10 @@
 // @ts-nocheck
-import { useCallback, useMemo } from "react";
+/* eslint-disable react/display-name */
+
+import { forwardRef, useCallback, useMemo } from "react";
 import { RiDeleteBin2Line } from "react-icons/ri";
 
 import { useTable, useFilters } from "react-table";
-import { useTransactions } from "../../contexts/TransactionsContext";
 import { theme } from "../../styles";
 import { formatCentsInReal } from "../../utils/formatCentsInReal";
 import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
@@ -11,9 +12,10 @@ import { ColumnFilter } from "./ColumnFilter";
 import { TypeFilter } from "./TypeFilter";
 import { Container, Content, Header } from "./styles";
 import { DateFilter } from "./DateFilter";
+import { useUser } from "../../contexts/UserContext";
 
-export function TransactionList() {
-  const { transactions, removeTransaction } = useTransactions();
+export const TransactionList = forwardRef((props, ref) => {
+  const { transactions, transactionController } = useUser();
 
   const getTransactionData = useCallback(() => {
     return transactions.map(t => {
@@ -69,7 +71,7 @@ export function TransactionList() {
     tableInstance;
 
   return (
-    <Container {...getTableProps()}>
+    <Container {...getTableProps()} ref={ref}>
       <Header>
         {headerGroups.map(headerGroup => (
           <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
@@ -103,7 +105,11 @@ export function TransactionList() {
                 );
               })}
 
-              <button onClick={() => removeTransaction(row.original.id)}>
+              <button
+                onClick={() =>
+                  transactionController.removeTransaction(row.original.id)
+                }
+              >
                 <RiDeleteBin2Line size={24} color={theme.colors.red.value} />{" "}
               </button>
             </tr>
@@ -112,4 +118,4 @@ export function TransactionList() {
       </Content>
     </Container>
   );
-}
+});

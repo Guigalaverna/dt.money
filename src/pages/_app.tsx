@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
 import { Sidebar } from "../components/Sidebar";
-import { TransactionContextProvider } from "../contexts/TransactionsContext";
 import { SessionProvider } from "next-auth/react";
+import { UserProvider } from "../contexts/UserContext";
 
 export default function MyApp({
   Component,
@@ -10,9 +10,9 @@ export default function MyApp({
   return (
     <>
       <SessionProvider session={session}>
-        <TransactionContextProvider>
+        <UserProvider>
           <Component {...pageProps} />
-        </TransactionContextProvider>
+        </UserProvider>
       </SessionProvider>
     </>
   );

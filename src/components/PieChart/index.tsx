@@ -1,15 +1,13 @@
 // @ts-nocheck
-import { theme } from "../../styles";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { Container } from "./styles";
-import { useTransactions } from "../../contexts/TransactionsContext";
-import { Transaction } from "../../../@types/Transaction";
+import { useUser } from "../../contexts/UserContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PieChart() {
-  const { transactions } = useTransactions();
+  const { transactions } = useUser();
 
   // create a array with objects with key is the category and value is the all transaction of that category
   const categories = transactions.map(t => t.category);

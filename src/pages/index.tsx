@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { TransactionTable } from "../components/TransactionTable";
@@ -17,20 +18,15 @@ import {
 import { RiCloseLine } from "react-icons/ri";
 import Modal from "react-modal";
 import { theme } from "../styles";
-import { useTransactions } from "../contexts/TransactionsContext";
 import { Sidebar } from "../components/Sidebar";
 
 import { useSession } from "next-auth/react";
+import { client } from "../lib/fauna";
+import { query as q } from "faunadb";
+import { useUser } from "../contexts/UserContext";
 
 Modal.setAppElement("#__next");
 export default function Home() {
-  const {
-    transactions,
-    addTransaction,
-    totalBalance,
-    totalIncome,
-    totalOutcome,
-  } = useTransactions();
   const [isOpen, setIsOpen] = useState(false);
 
   const [title, setTitle] = useState("");
@@ -38,7 +34,10 @@ export default function Home() {
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("");
 
-  const { data } = useSession();
+  // const { data } = useSession();
+
+  const { user, transactions, transactionController } = useUser();
+  console.log(user);
 
   function closeModal() {
     setIsOpen(false);
@@ -51,6 +50,12 @@ export default function Home() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
+    // clear input states
+    setTitle("");
+    setType(null);
+    setAmount(0);
+    setCategory("");
+
     const data = {
       title,
       type,
@@ -58,10 +63,21 @@ export default function Home() {
       category,
     };
 
-    console.log(data);
-    addTransaction(data);
+    transactionController.addTransaction(data);
     closeModal();
   }
+
+  const totalIncome = useMemo(() => {
+    return transactionController.resumeOfTransactions()
+      .totalOfIncomeTransactions;
+  }, [transactions]);
+  const totalOutcome = useMemo(() => {
+    return transactionController.resumeOfTransactions()
+      .totalOfOutcomeTransactions;
+  }, [transactions]);
+  const totalBalance = useMemo(() => {
+    return transactionController.resumeOfTransactions().totalBalance;
+  }, [transactions]);
 
   return (
     <>
@@ -70,7 +86,7 @@ export default function Home() {
       <Container data-testid="home">
         <Header>
           <div>
-            <Heading>Bem vindo, {data?.user?.name.split(" ")[0]}</Heading>
+            <Heading>Bem vindo, {user.data.name.split(" ")[0]}</Heading>
             <Button
               buttonType="filled"
               title="Nova transação"

@@ -2,19 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { TransactionTable } from "../components/TransactionTable";
 import { Container, Content, Header } from "../styles/pages/_Activity";
 import * as XLSX from "xlsx";
-import { useTransactions } from "../contexts/TransactionsContext";
 import { formatCentsInReal } from "../utils/formatCentsInReal";
 import { css } from "../styles";
 import { TransactionList } from "../components/TransactionList";
 import { Layout } from "../styles/pages/global";
 import { Sidebar } from "../components/Sidebar";
+import { useUser } from "../contexts/UserContext";
 
 export default function Activity() {
   const tableRef = useRef(null);
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const { transactions } = useTransactions();
+  const { transactions } = useUser();
 
   useEffect(() => {
     if (transactions.length === 0) {

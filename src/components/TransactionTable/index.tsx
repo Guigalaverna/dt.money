@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-import { useTransactions } from "../../contexts/TransactionsContext";
 import { formatCentsInReal } from "../../utils/formatCentsInReal";
 import { Container, Content, Header } from "./styles";
 
@@ -8,6 +7,7 @@ import { css, theme } from "../../styles";
 import { formatISOtoLocaleDate } from "../../utils/formatISOtoLocaleDate";
 import { ForwardedRef, forwardRef, useRef } from "react";
 import { Transaction } from "../../../@types/Transaction";
+import { useUser } from "../../contexts/UserContext";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -18,7 +18,7 @@ export const TransactionTable = forwardRef(
     props: TransactionTableProps,
     ref?: ForwardedRef<HTMLTableSectionElement>
   ) => {
-    const { removeTransaction } = useTransactions();
+    const { transactionController } = useUser();
     const tableRef = ref ? ref : null;
 
     const outcomeCSS = css({
@@ -32,10 +32,13 @@ export const TransactionTable = forwardRef(
       <div style={{ height: 570, overflowY: "auto" }}>
         <Container>
           <Header>
-            <th>Título</th>
-            <th>Preço</th>
-            <th>Categoria</th>
-            <th>Data</th>
+            <tr>
+              <td>Título</td>
+              <td>Preço</td>
+              <td>Categoria</td>
+              <td>Data</td>
+              <td>Ações</td>
+            </tr>
           </Header>
           <Content ref={tableRef}>
             {props.transactions.map(transaction => {
@@ -53,7 +56,11 @@ export const TransactionTable = forwardRef(
                   <td>{transaction.category}</td>
                   <td>{formatISOtoLocaleDate(transaction.createdAt)}</td>
                   <td>
-                    <button onClick={() => removeTransaction(transaction.id)}>
+                    <button
+                      onClick={() =>
+                        transactionController.removeTransaction(transaction.id)
+                      }
+                    >
                       <RiDeleteBin2Line
                         size={24}
                         color={theme.colors.red.value}
