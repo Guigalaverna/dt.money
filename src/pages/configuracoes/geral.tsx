@@ -16,9 +16,7 @@ const Container = styled(Layout, {
     marginTop: "2rem",
     padding: "0 2rem",
 
-    main: {
-      marginLeft: "1rem",
-    },
+    main: {},
   },
 });
 

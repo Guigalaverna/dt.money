@@ -9,9 +9,18 @@ export const Container = styled("section", {
 export const Fieldset = styled("fieldset", {
   border: "none",
   display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  marginTop: "1rem",
+  alignItems: "center",
+  marginTop: "2rem",
+
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+
+  img: {
+    marginLeft: "2rem",
+  },
 });
 
 export const Label = styled("label", {
@@ -21,4 +30,10 @@ export const Label = styled("label", {
   "&:not(:first-child)": {
     marginTop: "1rem",
   },
+});
+
+export const Avatar = styled("img", {
+  borderRadius: "20%",
+  width: "96px",
+  height: "96px",
 });
