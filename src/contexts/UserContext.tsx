@@ -1,9 +1,18 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useSession } from "next-auth/react";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { v4 } from "uuid";
 import { Category } from "../../@types/Category";
 import { UserContextData } from "../../@types/contexts/UserContextData";
 import { Transaction } from "../../@types/Transaction";
+
+import { setCookie, parseCookies } from "nookies";
 
 const Context = createContext({} as UserContextData);
 
@@ -14,6 +23,38 @@ export function UserProvider(props: { children: ReactNode }) {
 
   const { data, status } = useSession();
   const loggedUser = data?.user;
+
+  // effects to load data from cookies
+  useEffect(() => {
+    const cookies = parseCookies(null);
+    const transactions = cookies["@dt-money-transactions"];
+    const parsedTransactions = JSON.parse(transactions);
+    setTransactions(parsedTransactions);
+  }, []);
+
+  useEffect(() => {
+    const cookies = parseCookies(null);
+    const categories = cookies["@dt-money-categories"];
+    const parsedCategories = JSON.parse(categories);
+    setCategories(parsedCategories);
+  }, []);
+
+  // effects to save data in cookies
+  useEffect(() => {
+    const stringifiedTransactions = JSON.stringify(transactions);
+    setCookie(null, "@dt-money-transactions", stringifiedTransactions, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
+  }, [transactions]);
+
+  useEffect(() => {
+    const stringifiedCategories = JSON.stringify(categories);
+    setCookie(null, "@dt-money-categories", stringifiedCategories, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
+  }, [categories]);
 
   while (status === "loading") {
     return null;
@@ -100,9 +141,11 @@ export function UserProvider(props: { children: ReactNode }) {
     },
 
     removeCategory: (id: string) => {
-      setCategories(prevState =>
-        prevState.filter(category => category.id !== id)
-      );
+      console.log(id);
+      const filteredCategories = categories.filter(category => {
+        return category.id !== id;
+      });
+      setCategories(filteredCategories);
     },
   };
 
