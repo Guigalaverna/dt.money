@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FormEvent, useCallback, useMemo, useState } from "react";
 import { RiAddLine, RiDeleteBin2Line } from "react-icons/ri";
 import { useTable } from "react-table";
@@ -57,9 +58,8 @@ export function GeneralSettings() {
     categoryController.addCategory(category);
   }
 
-  // @ts-ignore
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const table = useTable({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows } = table;
 
   return (
     <Container>
