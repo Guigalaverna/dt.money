@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import {
   ButtonLogin,
@@ -31,7 +31,7 @@ export default function Login() {
         </h1>
       </Header>
       <Content>
-        <ButtonLogin>
+        <ButtonLogin onClick={() => signIn("google")}>
           <RiGoogleFill size={24} color="#FFF" />
           Login com o Google
         </ButtonLogin>
