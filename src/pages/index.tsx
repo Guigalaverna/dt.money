@@ -24,19 +24,22 @@ import { useSession } from "next-auth/react";
 import { client } from "../lib/fauna";
 import { query as q } from "faunadb";
 import { useUser } from "../contexts/UserContext";
+import { generateTransaction } from "../utils/user/generateTransaction";
 
 Modal.setAppElement("#__next");
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState<"income" | "outcome" | null>();
-  const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState("");
+  const [transactionTitle, setTransactionTitle] = useState("");
+  const [transactionType, setTransactionType] = useState<
+    "income" | "outcome" | null
+  >();
+  const [transactionAmount, setTransactionAmount] = useState(0);
+  const [transactionCategory, setTransactionCategory] = useState("");
 
   // const { data } = useSession();
 
-  const { user, transactions, transactionController } = useUser();
+  const { user, transactions, categories, transactionController } = useUser();
   console.log(user);
 
   function closeModal() {
@@ -50,20 +53,22 @@ export default function Home() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
+    const transaction = generateTransaction({
+      title: transactionTitle,
+      type: transactionType,
+      amount: transactionAmount,
+      category: transactionCategory,
+    });
+
+    debugger;
+
+    transactionController.addTransaction(transaction);
+
     // clear input states
-    setTitle("");
-    setType(null);
-    setAmount(0);
-    setCategory("");
-
-    const data = {
-      title,
-      type,
-      amount,
-      category,
-    };
-
-    transactionController.addTransaction(data);
+    setTransactionTitle("");
+    setTransactionType(null);
+    setTransactionAmount(0);
+    setTransactionCategory("");
     closeModal();
   }
 
@@ -138,8 +143,8 @@ export default function Home() {
                   id="title"
                   type="text"
                   placeholder="Aluguel da Casa"
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  value={transactionTitle}
+                  onChange={e => setTransactionTitle(e.target.value)}
                 />
               </div>
 
@@ -148,9 +153,9 @@ export default function Home() {
                 <select
                   name="type"
                   id="type"
-                  value={type}
+                  value={transactionType}
                   // @ts-ignore
-                  onChange={e => setType(e.target.value)}
+                  onChange={e => setTransactionType(e.target.value)}
                 >
                   <option value="default">Selecione uma Opção</option>
                   <option value="income">Entrada</option>
@@ -165,19 +170,26 @@ export default function Home() {
                   name="amount"
                   type="number"
                   placeholder="10"
-                  value={amount}
-                  onChange={e => setAmount(Number(e.target.value))}
+                  value={transactionAmount}
+                  onChange={e => setTransactionAmount(Number(e.target.value))}
                 />
               </div>
 
               <div>
                 <label htmlFor="category">Categoria</label>
-                <Input
-                  type="text"
-                  placeholder="Casa"
-                  value={category}
-                  onChange={e => setCategory(e.target.value)}
-                />
+                <select
+                  name="category"
+                  id="category"
+                  value={transactionCategory}
+                  onChange={e => setTransactionCategory(e.target.value)}
+                >
+                  <option value="default">Selecione uma Opção</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <ModalButton type="submit">Cadastrar</ModalButton>
