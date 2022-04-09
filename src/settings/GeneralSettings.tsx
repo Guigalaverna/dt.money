@@ -59,7 +59,8 @@ export function GeneralSettings() {
   }
 
   const table = useTable({ columns, data });
-  const { getTableProps, getTableBodyProps, headerGroups, rows } = table;
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    table;
 
   return (
     <Container>
