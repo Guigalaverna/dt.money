@@ -20,11 +20,13 @@ import Modal from "react-modal";
 import { theme } from "../styles";
 import { Sidebar } from "../components/Sidebar";
 
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { client } from "../lib/fauna";
 import { query as q } from "faunadb";
 import { useUser } from "../contexts/UserContext";
 import { generateTransaction } from "../utils/user/generateTransaction";
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 Modal.setAppElement("#__next");
 export default function Home() {
@@ -36,11 +38,11 @@ export default function Home() {
   >();
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [transactionCategory, setTransactionCategory] = useState("");
+  const router = useRouter();
 
   // const { data } = useSession();
 
   const { user, transactions, categories, transactionController } = useUser();
-  console.log(user);
 
   function closeModal() {
     setIsOpen(false);
@@ -200,3 +202,18 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const session = await getSession(ctx);
+
+  if (!session?.user) {
+    ctx.res.writeHead(302, {
+      Location: "/login",
+    });
+    ctx.res.end();
+  }
+
+  return {
+    props: {},
+  };
+};
