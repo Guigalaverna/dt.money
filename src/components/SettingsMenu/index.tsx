@@ -17,7 +17,7 @@ export function SettingsMenu({ links }: SettingsMenuProps) {
       <ul>
         {links.map(link => {
           return (
-            <li key={link.url}>
+            <li key={link.url} data-testid={link.name}>
               <link.icon size={24} color={theme.colors.shape.value} />
               <Link href={link.url}>
                 <a>{link.name}</a>
