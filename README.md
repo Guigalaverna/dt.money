@@ -58,7 +58,6 @@ This project is made with a lot of technologies, this is the list of them:
 
 ## 📦 Storage
 - [Nookies](https://www.npmjs.com/package/nookies)
-- [FaunaDB](https://fauna.com) (not used yet)
 ## 🔒 Authentication
 - [NextAuth](https://next-auth.js.org)
 

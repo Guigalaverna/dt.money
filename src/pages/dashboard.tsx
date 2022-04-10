@@ -21,8 +21,6 @@ import { theme } from "../styles";
 import { Sidebar } from "../components/Sidebar";
 
 import { getSession, useSession } from "next-auth/react";
-import { client } from "../lib/fauna";
-import { query as q } from "faunadb";
 import { useUser } from "../contexts/UserContext";
 import { generateTransaction } from "../utils/user/generateTransaction";
 import { useRouter } from "next/router";

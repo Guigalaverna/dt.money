@@ -1,5 +1,4 @@
-import { getSession, signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getSession, signIn } from "next-auth/react";
 import {
   ButtonLogin,
   Container,
@@ -9,7 +8,6 @@ import {
 
 import { RiGoogleFill } from "react-icons/ri";
 import { useEffect } from "react";
-import { GetServerSideProps } from "next";
 
 export default function Login() {
   return (
