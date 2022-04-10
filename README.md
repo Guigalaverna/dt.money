@@ -1,34 +1,108 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align='center'>
+  <img src='./.github/dt.money.svg' width=300 >
+</p>
 
-## Getting Started
+<p align='center' >
+   <img alt="Languages" src="https://img.shields.io/github/languages/count/Guigalaverna/dt.money?color=%235429CC" />
+  <img alt="lastcommit" src="https://img.shields.io/github/last-commit/Guigalaverna/dt.money?color=%235429CC" />
+  <img alt="License" src="https://img.shields.io/github/license/Guigalaverna/dt.money?color=%235429CC" />
+  <img alt="Issues" src="https://img.shields.io/github/issues/Guigalaverna/dt.money?color=%235429CC">
+</p>
 
-First, run the development server:
+<p align='center' >
+  💰 <strong>dt.money</strong> is a simple, easy, free to use and the most important, it's open source!!
+</p>
 
+<div align="center">
+  <sub> Made with 💖 by
+    <a href="https://github.com/Guigalaverna">Guigalaverna.
+  </sub>
+</div>
+
+# 📌 Table of Content
+- [📌 Table of Content](#-table-of-content)
+- [📷 Screenshots](#-screenshots)
+- [🚀 Technologies](#-technologies)
+  - [🧠 Frameworks](#-frameworks)
+  - [🖌️ Stylish](#️-stylish)
+  - [📔 Data](#-data)
+  - [📦 Storage](#-storage)
+  - [🔒 Authentication](#-authentication)
+  - [🧪 Testing](#-testing)
+  - [🧰 Tools](#-tools)
+- [🏃 How to Run](#-how-to-run)
+- [🐛 Issues](#-issues)
+- [✨ Contributing](#-contributing)
+- [:page_facing_up: License](#page_facing_up-license)
+
+# 📷 Screenshots
+<div align="center">
+   <img src="./.github/screenshots/activity.png" width="400px">
+   <img src="./.github/screenshots/dashboard.png" width="400px">
+   <img src="./.github/screenshots/resume.png" width="400px">
+</div>
+
+# 🚀 Technologies
+This project is made with a lot of technologies, this is the list of them:
+## 🧠 Frameworks
+- [React.js](https://reactjs.org)
+- [Next.js](https://nextjs.org)
+## 🖌️ Stylish
+- [Stitches](https://stitches.dev)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
+## 📔 Data
+- [React Table](https://react-table.tanstack.com/)
+- [Chart.js](https://chartjs.org)
+- [React Chart.js](https://www.npmjs.com/package/react-chartjs-2)
+
+## 📦 Storage
+- [Nookies](https://www.npmjs.com/package/nookies)
+- [FaunaDB](https://fauna.com) (not used yet)
+## 🔒 Authentication
+- [NextAuth](https://next-auth.js.org)
+
+## 🧪 Testing
+- [Jest](https://jestjs.io)
+- [Testing Library](https://testing-library.com)
+
+## 🧰 Tools
+- [uuid](https://npmjs.com/package/uuid)
+- [XLSX](https://npmjs.com/package/xlsx)
+
+Each listed technology is used to specific functionalty, for example:
+- [XLSX](https://npmjs.com/package/xlsx) is used to export data to **Microsoft Excel**
+  
+# 🏃 How to Run
+To run the project, first you need to clone the repository and install the dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/Guigalaverna/dt.money.git # Clone the repository
+$ cd dt.money # Go to the project folder
+$ npm install # Install the dependencies
 ```
+Now you can run the project:
+```bash
+$ npm run dev
+```
+> Pssst. You can also run the tests:
+> ```bash
+> $ npm run test
+> ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 🐛 Issues
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Create a <a href="https://github.com/Guigalaverna/dt.money/issues">new issue report</a>, it will be an honor to be able to help you solve and further improve our application.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# ✨ Contributing
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Fork this repository;
+- Create a branch with your feature: `git checkout -b my-feature`;
+- Commit your changes: `git commit -m 'feat: My new feature'`;
+- Push to your branch: `git push origin my-feature`.
 
-## Learn More
+# :page_facing_up: License
 
-To learn more about Next.js, take a look at the following resources:
+This project is under the [MIT license](./LICENSE).
+Made with 💖 by Guigalaverna.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Thank you! 🌠
