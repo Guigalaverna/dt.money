@@ -38,10 +38,9 @@ export default function Home() {
   const [transactionCategory, setTransactionCategory] = useState("");
   const router = useRouter();
 
-  // const { data } = useSession();
+  const { data } = useSession();
 
   const { user, transactions, categories, transactionController } = useUser();
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -59,8 +58,6 @@ export default function Home() {
       amount: transactionAmount,
       category: transactionCategory,
     });
-
-    debugger;
 
     transactionController.addTransaction(transaction);
 
@@ -203,13 +200,6 @@ export default function Home() {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const session = await getSession(ctx);
-
-  if (!session?.user) {
-    ctx.res.writeHead(302, {
-      Location: "/",
-    });
-    ctx.res.end();
-  }
 
   return {
     props: {},

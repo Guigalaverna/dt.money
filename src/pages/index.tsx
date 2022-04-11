@@ -7,7 +7,7 @@ import {
 } from "../styles/pages/_Login";
 
 import { RiGoogleFill } from "react-icons/ri";
-import { useEffect } from "react";
+import { GetServerSideProps } from "next";
 
 export default function Login() {
   return (
@@ -33,11 +33,12 @@ export default function Login() {
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const session = await getSession(ctx);
 
-  if (session) {
-    ctx.res.writeHead(302, { Location: "/dashboard" });
-    ctx.res.end();
+  if (session.user) {
     return {
       props: {},
+      redirect: {
+        destination: "/dashboard",
+      },
     };
   }
 
