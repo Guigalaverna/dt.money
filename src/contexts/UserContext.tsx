@@ -13,6 +13,7 @@ import { UserContextData } from "../../@types/contexts/UserContextData";
 import { Transaction } from "../../@types/Transaction";
 
 import { setCookie, parseCookies } from "nookies";
+import { api } from "../lib/api";
 
 const Context = createContext({} as UserContextData);
 
@@ -24,37 +25,33 @@ export function UserProvider(props: { children: ReactNode }) {
   const { data, status } = useSession();
   const loggedUser = data?.user;
 
-  // effects to load data from cookies
-  useEffect(() => {
-    const cookies = parseCookies(null);
-    const transactions = cookies["@dt-money-transactions"];
-    const parsedTransactions = JSON.parse(transactions);
-    setTransactions(parsedTransactions);
-  }, []);
+  // // effects to load data from cookies
+  // useEffect(() => {
+  //   const cookies = parseCookies(null);
+  //   const transactions = cookies["@dt-money-transactions"];
+  //   const parsedTransactions = JSON.parse(transactions);
+  //   setTransactions(parsedTransactions);
+  // }, []);
 
-  useEffect(() => {
-    const cookies = parseCookies(null);
-    const categories = cookies["@dt-money-categories"];
-    const parsedCategories = JSON.parse(categories);
-    setCategories(parsedCategories);
-  }, []);
+  // useEffect(() => {
+  //   const cookies = parseCookies(null);
+  //   const categories = cookies["@dt-money-categories"];
+  //   const parsedCategories = JSON.parse(categories);
+  //   setCategories(parsedCategories);
+  // }, []);
 
-  // effects to save data in cookies
-  useEffect(() => {
-    const stringifiedTransactions = JSON.stringify(transactions);
-    setCookie(null, "@dt-money-transactions", stringifiedTransactions, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-    });
-  }, [transactions]);
+  // // effects to save data in cookies
+  // useEffect(() => {
 
-  useEffect(() => {
-    const stringifiedCategories = JSON.stringify(categories);
-    setCookie(null, "@dt-money-categories", stringifiedCategories, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-    });
-  }, [categories]);
+  // }, [transactions]);
+
+  // useEffect(() => {
+  //   const stringifiedCategories = JSON.stringify(categories);
+  //   setCookie(null, "@dt-money-categories", stringifiedCategories, {
+  //     maxAge: 30 * 24 * 60 * 60,
+  //     path: "/",
+  //   });
+  // }, [categories]);
 
   while (status === "loading") {
     return null;
@@ -72,15 +69,19 @@ export function UserProvider(props: { children: ReactNode }) {
 
   // controllers
   const transactionController = {
-    addTransaction: (data: Transaction) => {
-      setTransactions(prevState => [
-        ...prevState,
-        {
-          id: v4(),
-          createdAt: new Date().toISOString(),
-          ...data,
-        },
-      ]);
+    addTransaction: async (data: Transaction) => {
+      // setTransactions(prevState => [
+      //   ...prevState,
+      //   {
+      //     id: v4(),
+      //     createdAt: new Date().toISOString(),
+      //     ...data,
+      //   },
+      // ]);
+      await api.post("transaction/create", {
+        userId: "data.user",
+        ...data,
+      });
     },
 
     removeTransaction: (id: string) => {
